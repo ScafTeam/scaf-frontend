@@ -1,55 +1,62 @@
 <template>
-  <el-card class="box-card">
-    <el-row>
-      <el-col :span="12">
-        <template v-if="SignStatus === STATUS.SignIn">
-          <img src="" alt=""> <!-- logo -->
-          <h1>SCAF</h1>
-        </template>
-        <template v-else>
-          <h1 style="title">{{ title }}</h1>
-        </template>
-        <el-form @keyup.enter="handleAuth" :model="form" label-width="40px">
-          <el-form-item label="username" v-if="SignStatus === STATUS.SignUp">
-            <el-input v-model="username"/>
-          </el-form-item>
-          <el-form-item label="email">
-            <el-input type="email" v-model="email" />
-          </el-form-item>
-          <el-form-item label="password" v-if="SignStatus != STATUS.ForgotPassword">
-            <el-input type="password" v-model="password" />
-          </el-form-item>
-          <el-form-item>
-            <el-button class="btn" type="primary" @click="handleAuth">{{ SignStatus }}</el-button>
-          </el-form-item>
+  <div class="back-ground">
+    
+    <el-card class="box-card">
+      <el-row>
+        <el-col :span="12">
           <template v-if="SignStatus === STATUS.SignIn">
-            <el-form-item>
-              <el-button disabled class="btn" type="primary">Continue with Google</el-button>
-            </el-form-item>
-            <el-form-item>
-              <el-button disabled class="btn" type="primary">Continue with Github</el-button>
-            </el-form-item>
-            <el-form-item>
-              <el-button disabled text type="primary">Forgot Password?</el-button>
-              <el-button disabled text type="primary">SignUp</el-button>
-            </el-form-item>
+            <img src="" alt="logo">
+            <h1 style="title">SCAF</h1>
           </template>
-        </el-form>
-      </el-col>
-      <el-col :span="12">
-        test
-        <img src="" alt="">
-      </el-col>
-   </el-row>
-  </el-card>
-
+          <template v-else>
+            <h1 style="title">{{ title }}</h1>
+          </template>
+          <el-form @keyup.enter="handleAuth" :model="form" label-width="40px">
+            <el-form-item class="" label="username" v-if="SignStatus === STATUS.SignUp">
+              <el-input v-model="username" />
+            </el-form-item>
+            <el-form-item label="email">
+              <el-input type="email" v-model="email" />
+            </el-form-item>
+            <el-form-item label="password" v-if="SignStatus != STATUS.ForgotPassword">
+              <el-input type="password" v-model="password" />
+            </el-form-item>
+            <el-form-item style="margin-left: 60px;">
+              <el-button class="btn" style="width: 200px;" type="primary" @click="handleAuth">{{ SignStatus }}
+              </el-button>
+            </el-form-item>
+            <template v-if="SignStatus === STATUS.SignIn">
+              <el-form-item>
+                <el-button class="btn" type="primary">
+                  <font-awesome-icon icon="fa-brands fa-google" />Continue with Google
+                </el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button class="btn" type="primary">
+                  <font-awesome-icon icon="fa-brands fa-github" />Continue with Github
+                </el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button text type="primary">Forgot Password?</el-button>
+                <el-button text type="primary" style="margin-left:90px;">SignUp</el-button>
+              </el-form-item>
+            </template>
+          </el-form>
+        </el-col>
+        <el-col :span="12">
+          <img src="../cat.jpg" alt="" width="359" height="356">
+        </el-col>
+      </el-row>
+    </el-card>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive  } from 'vue'
+import { ref, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import axios from 'axios'
+
 
 enum STATUS {
   SignIn = 'Sign In',
@@ -66,13 +73,13 @@ const msg = ref('')
 
 const handleAuth = async () => {
   const { data } = await axios.post('api/signIn', {
-    email: email.value, 
+    email: email.value,
     password: password.value
   })
-  if(data !== 'Success') {
-    ElMessage({ type: 'error', message: 'Wrong username or password'})
+  if (data !== 'Success') {
+    ElMessage({ type: 'error', message: 'Wrong username or password' })
   } else {
-    ElMessage({ type: 'success' ,message: 'Sign In Success'})
+    ElMessage({ type: 'success', message: 'Sign In Success' })
   }
 }
 
@@ -105,18 +112,45 @@ switch (route.params.mode) {
 </script>
 
 <style scoped>
+* {
+  --el-text-color-regular: white;
+}
+
+.back-ground{
+  position: fixed;
+  top:0px;
+  background-color: black;
+  width: 100vw;
+  height: calc(100vh);
+}
+
+h1 {
+  color: white;
+  margin: 20px;
+}
+
 .box-card {
   padding: 20px;
   width: 800px;
   margin: 20px auto 40px;
+  background-color: black;
   position: relative;
+  border: 0px;
 }
 
-.title {
-  margin: 12px;
-}
 
 .btn {
-  width: 240px;
+  width: 319px;
+  background-color: white;
+  color: black;
+}
+
+
+.btn:hover {
+  background-color: #87ceeb;
+}
+
+.svg-inline--fa {
+  margin: 10px;
 }
 </style>
