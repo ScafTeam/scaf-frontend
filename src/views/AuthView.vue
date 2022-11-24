@@ -1,10 +1,11 @@
 <template>
   <div class="back-ground">
+    
     <el-card class="box-card">
       <el-row>
         <el-col :span="12">
           <template v-if="SignStatus === STATUS.SignIn">
-            <img src="" alt=""> <!-- logo -->
+            <img src="" alt="logo">
             <h1 style="title">SCAF</h1>
           </template>
           <template v-else>
