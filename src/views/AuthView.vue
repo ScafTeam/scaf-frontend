@@ -1,6 +1,5 @@
 <template>
-  <div class="back-ground">
-    
+  <div class="back-ground"> 
     <el-card class="box-card">
       <el-row>
         <el-col :span="12">
