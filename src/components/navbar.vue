@@ -20,7 +20,9 @@
       </RouterLink>
     </el-col>
     <el-col :span="2">
-      <el-menu-item>Q&A</el-menu-item>
+      <RouterLink to="/QA" class="no-underline">
+        <el-menu-item>Q&A</el-menu-item>
+      </RouterLink>
     </el-col>
 
     <el-col :span="12">
@@ -30,7 +32,9 @@
       <el-menu-item>Setting</el-menu-item>
     </el-col>
     <el-col :span="2">
-      <el-menu-item>Sign out</el-menu-item>
+      <RouterLink to="/sign-in" class="no-underline">
+        <el-menu-item>Sign out</el-menu-item>
+      </RouterLink>
     </el-col>
     <el-col :span="0.5">
       <div class="whitespace"></div>

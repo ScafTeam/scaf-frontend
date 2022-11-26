@@ -1,27 +1,131 @@
 <template>
-  <div class="background">
-    <el-button type="primary" plain>Doc</el-button>
+  <div class="doc-background">
+    <el-tabs
+      tab-position="left"
+      style="height: 725px"
+      class="demo-tabs doc-tabs"
+    >
+      <el-tab-pane>
+        <template #label>
+          <span class="doc-item">
+            <span>requirement</span>
+          </span>
+        </template>
+        <div class="doc-box">
+          Requirement
+          <el-button type="primary" plain class="doc-button">
+            <el-icon class="margin-right-10"> <Edit /></el-icon>
+            edit
+          </el-button>
+        </div>
+        <el-button plain class="doc-hackmd"> hackmd </el-button>
+      </el-tab-pane>
+      <el-tab-pane>
+        <template #label>
+          <span class="doc-item">
+            <span>design</span>
+          </span>
+        </template>
+        <div class="doc-box">
+          Design
+          <el-button type="primary" plain class="doc-button">
+            <el-icon class="margin-right-10"> <Edit /></el-icon>
+            edit
+          </el-button>
+        </div>
+        <el-button plain class="doc-hackmd"> hackmd </el-button>
+      </el-tab-pane>
+      <el-tab-pane>
+        <template #label>
+          <span class="doc-item">
+            <span>dev environment</span>
+          </span>
+        </template>
+        <div class="doc-box">
+          Dev environment
+          <el-button type="primary" plain class="doc-button">
+            <el-icon class="margin-right-10"> <Edit /></el-icon>
+            edit
+          </el-button>
+        </div>
+        <el-button plain class="doc-hackmd"> hackmd </el-button>
+      </el-tab-pane>
+      <el-tab-pane>
+        <template #label>
+          <span class="doc-item">
+            <span>naming convention</span>
+          </span>
+        </template>
+        <div class="doc-box">
+          Naming convention
+          <el-button type="primary" plain class="doc-button">
+            <el-icon class="margin-right-10"> <Edit /></el-icon>
+            edit
+          </el-button>
+        </div>
+        <el-button plain class="doc-hackmd"> hackmd </el-button>
+      </el-tab-pane>
+      <el-tab-pane>
+        <template #label>
+          <span class="doc-item">
+            <span>git commit format</span>
+          </span>
+        </template>
+        <div class="doc-box">
+          Git commit format
+          <el-button type="primary" plain class="doc-button">
+            <el-icon class="margin-right-10"> <Edit /></el-icon>
+            edit
+          </el-button>
+        </div>
+        <el-button plain class="doc-hackmd"> hackmd </el-button>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
+<script lang="ts" setup></script>
+
 <style>
-.card-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.doc-background {
+  background-color: #f5f5f5;
+  height: 100%;
+  width: 100%;
+  font-size: 60px;
+}
+.demo-tabs > .el-tabs__content {
+  padding-left: 32px;
+  padding-top: 0px;
+  color: #6b778c;
+  font-size: 40px;
+  font-weight: normal;
 }
 
-.text {
-  font-size: 14px;
-  text-align: center;
+.el-tabs--right .el-tabs__content,
+.el-tabs--left .el-tabs__content {
+  height: 100%;
 }
-
-.item {
-  margin-bottom: 60px;
+.doc-tabs {
+  margin-left: 480px;
+  margin-right: 480px;
+  padding-top: 30px;
 }
-
-.box-card {
-  width: 200px;
-  margin: 20px;
+.doc-item {
+  font-size: 20px;
+  height: 200px;
+}
+.doc-button {
+  padding: 16px;
+}
+.doc-hackmd {
+  width: 725px;
+  padding-top: 290px;
+  padding-bottom: 290px;
+  margin-top: 30px;
+}
+.doc-box {
+  display: flex; /*宣告為彈性佈局元素*/
+  justify-content: space-between; /*相同間距*/
+  align-items: center; /*垂直置中*/
 }
 </style>

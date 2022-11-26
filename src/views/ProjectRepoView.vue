@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="repo-background">
     <el-card class="repo-box-card">
       <template #header>
         <div class="repo-card-header">
@@ -13,20 +13,6 @@
         <el-button type="primary" class="repo-button" plain>
           <a class="repo-name-text">repository {{ o }}</a>
           <a class="repo-domain-name-text">domain name</a>
-          <!-- <el-row :gutter="400">
-            <el-col :span="8"> A </el-col>
-            <el-col :span="8"> B </el-col>
-            <el-col :span="8"> C</el-col>
-          </el-row>
-          <el-row :gutter="400">
-             <el-col :span="8"> D</el-col>
-            <el-col :span="8">E </el-col>
-            <el-col :span="8"> F</el-col> -->
-          <!-- </el-row>  -->
-          <!-- <span class="repo-name-text">repository {{ o }}</span> -->
-          <!-- <a class="repo-name-text">repository {{ o }}</a>
-          <a class="repo-name-text">repository {{ o }}</a>
-          <a class="repo-name-text">repository {{ o }}</a> -->
         </el-button>
       </p>
     </el-card>
@@ -38,8 +24,8 @@
   background-color: #f5f5f5;
   height: 100%;
   width: 100%;
+  display: flex;
   justify-content: center;
-  align-items: center;
 }
 .repo-card-header {
 }
