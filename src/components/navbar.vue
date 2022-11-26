@@ -29,7 +29,9 @@
       <div class="whitespace" />
     </el-col>
     <el-col :span="2">
-      <el-menu-item>Setting</el-menu-item>
+      <RouterLink to="/settings" class="no-underline">
+        <el-menu-item>Settings</el-menu-item>
+      </RouterLink>
     </el-col>
     <el-col :span="2">
       <RouterLink to="/sign-in" class="no-underline">

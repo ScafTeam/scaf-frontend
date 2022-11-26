@@ -26,7 +26,7 @@
           <div class="font-size-20">project name</div>
           <div>
             <el-input
-              v-model="userNameInput"
+              v-model="projectNameInput"
               class="w-150 m-2"
               size="large"
               placeholder="new project name"
@@ -89,7 +89,7 @@
 import { ElMessage, ElMessageBox } from "element-plus";
 import { ref } from "vue";
 import { Search } from "@element-plus/icons-vue";
-const userNameInput = ref("");
+const projectNameInput = ref("");
 const memberInput = ref("");
 const open = () => {
   /*­n½T»{Åv­­*/

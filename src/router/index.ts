@@ -3,6 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import NavBarVue from '../components/NavBar.vue'
 import AuthViewVue from '../views/AuthView.vue'
 import Changebar from '../components/changebar.vue'
+import ProjectsViewVue from '../views/ProjectsView.vue'
+import InitProjectViewVue from '../views/InitProjectView.vue'
+import SettingsViewVue from '../views/SettingsView.vue'
 import ProjectRepoViewVue from '../views/ProjectRepoView.vue'
 import ProjectDocViewVue from '../views/ProjectDocView.vue'
 import kanbanVue from '../views/kanban.vue'
@@ -15,8 +18,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component:  HomeView,
+      name: 'projects',
+      component:  ProjectsViewVue,
+    },
+    {
+      path: '/init-project',
+      name: 'init-project',
+      component:  InitProjectViewVue,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component:  SettingsViewVue,
     },
     {
       path: '/sign-:mode(in|up|forgot)',

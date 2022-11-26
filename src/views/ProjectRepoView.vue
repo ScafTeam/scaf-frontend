@@ -9,12 +9,26 @@
           </el-button>
         </div>
       </template>
-      <p v-for="o in 4" :key="o" class="repo-item">
-        <el-button type="primary" class="repo-button" plain>
-          <a class="repo-name-text">repository {{ o }}</a>
-          <a class="repo-domain-name-text">domain name</a>
-        </el-button>
-      </p>
+      <el-scrollbar height="575px">
+        <p
+          v-for="i in 99"
+          :key="item"
+          class="scrollbar-demo-item projects-item"
+        >
+          <el-button type="primary" class="repo-button" plain>
+            <a class="repo-name-text">repository {{ i }}</a>
+            <a class="repo-domain-name-text">domain name</a>
+            <el-button
+              type="primary"
+              size="small"
+              class="margin-left-20 repo-close-button"
+              plain
+            >
+              <el-icon><Close /></el-icon
+            ></el-button>
+          </el-button>
+        </p>
+      </el-scrollbar>
     </el-card>
   </div>
 </template>
@@ -64,5 +78,12 @@
   border-radius: 30px;
   padding-left: 5px;
   padding-right: 5px;
+}
+.repo-close-button {
+  padding: 5px;
+  justify-content: right;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 30px;
 }
 </style>
