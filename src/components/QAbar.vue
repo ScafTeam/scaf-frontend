@@ -4,7 +4,7 @@
       <div class="whitespace"></div>
     </el-col>
     <el-col :span="18">
-      <h2 class="margin-top-20 margin-bottom-30">Project Name</h2>
+      <h2 class="margin-top-20 margin-bottom-30">Q&A</h2>
     </el-col>
   </el-row>
   <el-row>
@@ -14,26 +14,16 @@
         <div class="whitespace"></div>
       </el-col>
       <el-col :span="3">
-        <RouterLink to="/project/repositories" class="no-underline">
-          <el-menu-item>repositories</el-menu-item>
+        <RouterLink to="/QA/testing" class="no-underline">
+          <el-menu-item>testing</el-menu-item>
         </RouterLink>
       </el-col>
       <el-col :span="3">
-        <RouterLink to="/project/documents" class="no-underline">
-          <el-menu-item>documents</el-menu-item>
+        <RouterLink to="/QA/deployment" class="no-underline">
+          <el-menu-item>deployment</el-menu-item>
         </RouterLink>
       </el-col>
-      <el-col :span="3">
-        <RouterLink to="/project/kanban" class="no-underline">
-          <el-menu-item>kanban</el-menu-item>
-        </RouterLink>
-      </el-col>
-      <el-col :span="3">
-        <RouterLink to="/project/setting" class="no-underline">
-          <el-menu-item>setting</el-menu-item>
-        </RouterLink>
-      </el-col>
-      <el-col :span="6">
+      <el-col :span="9">
         <div class="whitespace"></div>
       </el-col>
     </el-menu>
@@ -42,12 +32,11 @@
 </template>
 
 <style>
-
-.el-menu-demo{
+.el-menu-demo {
   width: 100%;
 }
 
-.el-menu-item{
+.el-menu-item {
   padding: 0px;
 }
 

@@ -1,12 +1,10 @@
 <template>
-  <div class="back-ground">
-    
+  <div class="back-ground"> 
     <el-card class="box-card">
       <el-row>
         <el-col :span="12">
           <template v-if="SignStatus === STATUS.SignIn">
-            <img src="" alt="logo">
-            <h1 style="title">SCAF</h1>
+            <el-image :src="src" style="height: 100px;" />
           </template>
           <template v-else>
             <h1 style="title">{{ title }}</h1>
@@ -109,6 +107,7 @@ switch (route.params.mode) {
     SignStatus.value = STATUS.ForgotPassword
     break
 }
+const src = "src\\Logo.png";
 </script>
 
 <style scoped>
