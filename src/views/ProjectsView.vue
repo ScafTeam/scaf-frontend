@@ -6,20 +6,18 @@
           <a class="projects-title-text"> My Projects</a>
           <router-link to="/init-project" class="no-underline">
             <el-button type="primary" class="projects-plus-button" plain>
-              <el-icon><Plus /></el-icon>
+              <el-icon>
+                <Plus />
+              </el-icon>
             </el-button>
           </router-link>
         </div>
       </template>
       <el-scrollbar height="700px">
-        <p
-          v-for="i in 99"
-          :key="item"
-          class="scrollbar-demo-item projects-item"
-        >
+        <p v-for="(item, index) in project.names" class="scrollbar-demo-item projects-item">
           <router-link to="/project" class="no-underline">
-            <el-button type="primary" class="projects-button" plain>
-              <a class="projects-name-text">my project {{ i }}</a>
+            <el-button type="primary" @click="ChosePro(item.name)" class="projects-button" plain>
+              <a class="projects-name-text">{{ index + 1 }} . {{ item.name }}</a>
             </el-button>
           </router-link>
         </p>
@@ -27,6 +25,20 @@
     </el-card>
   </div>
 </template>
+
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import { useProjectStore } from '@/stores/project'
+
+const project = useProjectStore();
+
+function ChosePro(name: string) {
+  project.nowproject = name;
+}
+
+
+</script>
 
 <style>
 .projects-background {
@@ -41,29 +53,34 @@
   margin-bottom: 10px;
   height: 80px;
 }
+
 .projects-button {
   width: 100%;
   height: 100%;
   padding: 16px;
   justify-content: left;
 }
+
 .projects-box-card {
   width: 960px;
   margin: 20px;
   height: 100%;
 }
+
 .projects-name-text {
   width: 100%;
   font-size: 30px;
   margin-right: 0px;
   text-align: left;
 }
+
 .projects-title-text {
   font-size: 40px;
   font-weight: bold;
   margin-right: 0px;
   text-align: left;
 }
+
 .projects-plus-button {
   float: right;
   margin-top: 10px;

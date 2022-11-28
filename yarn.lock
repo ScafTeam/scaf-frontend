@@ -495,7 +495,7 @@
     "@vue/compiler-dom" "3.2.41"
     "@vue/shared" "3.2.41"
 
-"@vue/devtools-api@^6.1.4", "@vue/devtools-api@^6.4.4":
+"@vue/devtools-api@^6.1.4", "@vue/devtools-api@^6.4.5":
   "integrity" "sha512-JD5fcdIuFxU4fQyXUu3w2KpAJHzTVdN+p4iOX2lMWSHMOoQdMAcpFLZzm9Z/2nmsoZ1a96QEhZ26e50xLBsgOQ=="
   "resolved" "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.4.5.tgz"
   "version" "6.4.5"
@@ -4186,12 +4186,12 @@
   "resolved" "https://registry.npmjs.org/pify/-/pify-4.0.1.tgz"
   "version" "4.0.1"
 
-"pinia@^2.0.21":
-  "integrity" "sha512-N15hFf4o5STrxpNrib1IEb1GOArvPYf1zPvQVRGOO1G1d74Ak0J0lVyalX/SmrzdT4Q0nlEFjbURsmBmIGUR5Q=="
-  "resolved" "https://registry.npmjs.org/pinia/-/pinia-2.0.23.tgz"
-  "version" "2.0.23"
+"pinia@^2.0.27":
+  "integrity" "sha512-nOnXP0OFeL8R4WjAHsterU+11vptda643gH02xKNtSCDPiRzVfRYodOLihLDoa0gL1KKuQKV+KOzEgdt3YvqEw=="
+  "resolved" "https://registry.npmjs.org/pinia/-/pinia-2.0.27.tgz"
+  "version" "2.0.27"
   dependencies:
-    "@vue/devtools-api" "^6.4.4"
+    "@vue/devtools-api" "^6.4.5"
     "vue-demi" "*"
 
 "pkg-dir@^3.0.0":
