@@ -53,7 +53,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log('valid');
-      project.names.push({name:ruleForm.name});
+      project.names.push({name:ruleForm.name,repo:[]});
       project.nowproject = ruleForm.name;
     } else {
       console.log('error submit!', fields);

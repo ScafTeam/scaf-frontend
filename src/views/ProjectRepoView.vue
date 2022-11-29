@@ -3,20 +3,33 @@
     <el-card class="repo-box-card">
       <template #header>
         <div class="repo-card-header">
-          <el-button type="primary" plain>
+          <el-button type="primary" plain @click="dialogFormVisible = true">
             <el-icon class="margin-right-10">
               <Plus />
             </el-icon>
-            new repository
           </el-button>
+          <el-dialog v-model="dialogFormVisible" title="github address">
+            <el-form :model="form">
+              <el-form-item label="url:" :label-width="formLabelWidth">
+                <el-input v-model="form.url" autocomplete="off" />
+              </el-form-item>
+            </el-form>
+            <template #footer>
+              <span class="dialog-footer">
+                <el-button type="primary" @click="dialogFormVisible = false, CreateRepo()">
+                  Confirm
+                </el-button>
+              </span>
+            </template>
+          </el-dialog>
         </div>
       </template>
       <el-scrollbar height="575px">
-        <p v-for="i in 99" :key="item" class="scrollbar-demo-item projects-item">
+        <p v-for="(item, index) in nowrepo" class="scrollbar-demo-item projects-item">
           <el-button type="primary" class="repo-button" plain>
-            <a class="repo-name-text">repository {{ i }}</a>
-            <a class="repo-domain-name-text">domain name</a>
-            <el-button type="primary" size="small" class="margin-left-20 repo-close-button" plain>
+            <a class="repo-name-text" :href=item>{{ item }}</a>
+            <el-button type="primary" size="small" class="margin-left-20 repo-close-button" plain
+              @click="deleterepo(item)">
               <el-icon>
                 <Close />
               </el-icon>
@@ -30,6 +43,52 @@
 
 
 
+<script  lang="ts" setup>
+import { useProjectStore } from '@/stores/project'
+import { reactive, ref } from 'vue'
+
+const project = useProjectStore();
+const dialogTableVisible = ref(false)
+const dialogFormVisible = ref(false)
+const formLabelWidth = '140px'
+
+let nowrepo = renew();
+const form = reactive({
+  url: '',
+})
+
+
+function renew() {
+  for (let i = 0; i < project.names.length; i++) {
+    if (project.names[i].name == project.nowproject)
+      return project.names[i].repo;
+  }
+}
+function CreateRepo() {
+  for (let i = 0; i < project.names.length; i++) {
+    if (project.names[i].name == project.nowproject) {
+      project.names[i].repo.push(form.url);
+      console.log(project.names[i].repo.length);
+    }
+  }
+  nowrepo = renew();
+}
+
+function deleterepo(name: string) {
+  for (let i = 0; i < project.names.length; i++) {
+    if (project.names[i].name == project.nowproject) {
+      for (let j = 0; j < project.names[i].repo.length; j++) {
+        if (project.names[i].repo[j] == name) {
+          project.names[i].repo.splice(j, 1);
+          nowrepo = renew();
+          console.log(nowrepo);
+          return;
+        }
+      }
+    }
+  }
+}
+</script>
 
 <style>
 .repo-background {
@@ -68,6 +127,7 @@
   font-weight: bold;
   margin-right: 0px;
   text-align: left;
+  text-decoration: none;
 }
 
 .repo-domain-name-text {

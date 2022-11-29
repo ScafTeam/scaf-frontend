@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -7,7 +8,7 @@ import 'element-plus/dist/index.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import App from './App.vue'
+import App from '@/App.vue'
 import router from './router'
 
 import './assets/main.css'
@@ -23,11 +24,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
+
 library.add(fas, fab)
 
 const app = createApp(App)
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(VueAxios, axios)
 
