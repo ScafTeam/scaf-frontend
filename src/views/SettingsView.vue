@@ -9,7 +9,6 @@
       :size="formSize"
       status-icon
     >
-      <!-- �W��func���g -->
       <el-form-item label="avatar">
         <uploadimage />
       </el-form-item>
@@ -29,7 +28,6 @@
           >Save</el-button
         >
       </el-form-item>
-      <!-- �H�U��click func���g -->
       <el-form-item label="Password">
         <el-button type="primary" @click="">reset</el-button>
       </el-form-item>

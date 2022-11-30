@@ -107,7 +107,7 @@ switch (route.params.mode) {
     SignStatus.value = STATUS.ForgotPassword
     break
 }
-const src = "src\\Logo.png";
+const src = "src/Logo.png";
 </script>
 
 <style scoped>

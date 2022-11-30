@@ -94,5 +94,5 @@ const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
 
-const src = "src\\Logo.png";
+const src = "src/Logo.png";
 </script>

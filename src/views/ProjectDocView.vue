@@ -137,10 +137,7 @@
 
 .doc-box {
   display: flex;
-  /*�ŧi���u�ʧG������*/
   justify-content: space-between;
-  /*�ۦP���Z*/
   align-items: center;
-  /*�����m��*/
 }
 </style>
