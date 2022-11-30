@@ -1,5 +1,5 @@
 <template>
-  <div class="projects-background" onload="test()">
+  <div class="projects-background">
     <el-card class="projects-box-card">
       <template #header>
         <div class="projects-card-header">
