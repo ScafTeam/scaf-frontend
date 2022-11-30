@@ -10,13 +10,19 @@
           </el-button>
           <el-dialog v-model="dialogFormVisible" title="github address">
             <el-form :model="form">
+              <el-form-item label="name:" :label-width="formLabelWidth">
+                <el-input v-model="form.name" autocomplete="off" />
+              </el-form-item>
               <el-form-item label="url:" :label-width="formLabelWidth">
                 <el-input v-model="form.url" autocomplete="off" />
               </el-form-item>
             </el-form>
             <template #footer>
               <span class="dialog-footer">
-                <el-button type="primary" @click="dialogFormVisible = false, CreateRepo()">
+                <el-button
+                  type="primary"
+                  @click="(dialogFormVisible = false), CreateRepo()"
+                >
                   Confirm
                 </el-button>
               </span>
@@ -25,11 +31,20 @@
         </div>
       </template>
       <el-scrollbar height="575px">
-        <p v-for="(item, index) in nowrepo" class="scrollbar-demo-item projects-item">
+        <p
+          v-for="(item, index) in nowrepo"
+          class="scrollbar-demo-item projects-item"
+        >
           <el-button type="primary" class="repo-button" plain>
-            <a class="repo-name-text" :href=item>{{ item }}</a>
-            <el-button type="primary" size="small" class="margin-left-20 repo-close-button" plain
-              @click="deleterepo(item)">
+            <a class="repo-name-text" :href="item.url">{{ item.name }}</a>
+            <a class="repo-domain-name-text">{{ item.url }}</a>
+            <el-button
+              type="primary"
+              size="small"
+              class="margin-left-20 repo-close-button"
+              plain
+              @click="deleterepo(item)"
+            >
               <el-icon>
                 <Close />
               </el-icon>
@@ -41,22 +56,20 @@
   </div>
 </template>
 
-
-
-<script  lang="ts" setup>
-import { useProjectStore } from '@/stores/project'
-import { reactive, ref } from 'vue'
+<script lang="ts" setup>
+import { useProjectStore } from "@/stores/project";
+import { reactive, ref } from "vue";
 
 const project = useProjectStore();
-const dialogTableVisible = ref(false)
-const dialogFormVisible = ref(false)
-const formLabelWidth = '140px'
+const dialogTableVisible = ref(false);
+const dialogFormVisible = ref(false);
+const formLabelWidth = "140px";
 
 let nowrepo = renew();
 const form = reactive({
-  url: '',
-})
-
+  name: "",
+  url: "",
+});
 
 function renew() {
   for (let i = 0; i < project.names.length; i++) {
@@ -67,7 +80,8 @@ function renew() {
 function CreateRepo() {
   for (let i = 0; i < project.names.length; i++) {
     if (project.names[i].name == project.nowproject) {
-      project.names[i].repo.push(form.url);
+      project.names[i].repo.push({ name: form.name, url: form.url });
+
       console.log(project.names[i].repo.length);
     }
   }
@@ -132,7 +146,7 @@ function deleterepo(name: string) {
 
 .repo-domain-name-text {
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
   margin-left: 20px;
   text-align: left;
   border-style: solid;
