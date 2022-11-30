@@ -81,7 +81,15 @@ function CreateRepo() {
   for (let i = 0; i < project.names.length; i++) {
     if (project.names[i].name == project.nowproject) {
       project.names[i].repo.push({ name: form.name, url: form.url });
-
+      // try {
+      //   const { data, err } = await axios.post("api/projects/:id/addRepo", {
+      //     Name: form.name.value,
+      //     Url: form.url.value,
+      //   });
+      //   ElMessage({ type: "success", message: "Add Repository In Success" });
+      // } catch (err) {
+      //   ElMessage({ type: "error", message: err.response.data.message });
+      // }
       console.log(project.names[i].repo.length);
     }
   }
@@ -94,6 +102,14 @@ function deleterepo(name: string) {
       for (let j = 0; j < project.names[i].repo.length; j++) {
         if (project.names[i].repo[j] == name) {
           project.names[i].repo.splice(j, 1);
+          // try {
+          //   const { data, err } = await axios.delete("api/projects/:id/????", {
+          //     ????: name.value
+          //   });
+          //   ElMessage({ type: "success", message: "Delete Repository In Success" });
+          // } catch (err) {
+          //   ElMessage({ type: "error", message: err.response.data.message });
+          // }
           nowrepo = renew();
           console.log(nowrepo);
           return;
