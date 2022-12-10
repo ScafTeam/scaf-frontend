@@ -38,7 +38,7 @@
                   type="danger"
                   size="large"
                   plain
-                  @click.sotp="deletePro(item.name)"
+                  @click.stop="deletePro(item.name)"
                 >
                   <el-icon>
                     <Close />
@@ -73,10 +73,10 @@ const getPro = async () => {
     const { data, err } = await axios.get("api/projects", {});
     ElMessage({ type: "success", message: "Get Projects In Success" });
     console.log("Get Projects");
-    console(data);
+    // console(data);
   } catch (err) {
     ElMessage({ type: "error", message: err.response.data.message });
-    console(err);
+    // console(err);
     console.log("ERROR");
   }
 };
@@ -103,7 +103,7 @@ function deletePro(name: string) {
 getPro();
 </script>
 
-<style>
+<style scoped>
 .whitespace {
   background-color: white;
 }

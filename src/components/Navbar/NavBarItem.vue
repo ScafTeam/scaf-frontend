@@ -1,17 +1,17 @@
 <template>
   <template v-if="data.type === 'image'">
-    <el-menu-item :class="data.class">
+    <el-menu-item>
       <img :src="data.value" />
     </el-menu-item>
   </template>
   <template v-else-if="data.type === 'notification'">
-    <el-menu-item :class="data.class">
+    <el-menu-item>
       <el-dropdown trigger="click">
         <el-icon :size="32">
           <Bell />
         </el-icon>
         <template #dropdown>
-          <el-dropdown-menu style="min-width: 200px;">
+          <el-dropdown-menu style="min-width: 200px">
             <el-dropdown-item> Action 1 </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -24,7 +24,10 @@
     </el-menu-item>
   </template>
   <template v-else>
-    <el-menu-item :class="data.class">
+    <el-menu-item
+      :class="data.class"
+      :style="{ 'font-size': data.size ? data.size : 24 + 'px' }"
+    >
       {{ data.value }}
     </el-menu-item>
   </template>
@@ -53,7 +56,6 @@ const { data } = toRefs(props);
   display: flex;
   justify-content: center;
   text-align: center;
-  font-size: 24px;
   font-weight: 500;
   padding: 0;
   margin: 0;

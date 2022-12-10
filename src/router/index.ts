@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import testView from "@/views/test.vue";
 
 import HomeView from "../views/HomeView.vue";
-import NavBarVue from "../components/Navbar/navbar.vue";
+import ProjectView from "@/views/ProjectView.vue";
 import AuthViewVue from "../views/AuthView.vue";
-import Changebar from "../components/changebar.vue";
+// import Changebar from "../components/changebar.vue";
 import ProjectsViewVue from "../views/ProjectsView.vue";
 import InitProjectViewVue from "../views/InitProjectView.vue";
 import SettingsViewVue from "../views/SettingsView.vue";
@@ -12,9 +12,9 @@ import ProjectRepoViewVue from "../views/ProjectRepoView.vue";
 import ProjectDocViewVue from "../views/ProjectDocView.vue";
 import kanbanVue from "../views/kanban.vue";
 import ProjectSettingViewVue from "../views/ProjectSettingView.vue";
-import QAbar from "../components/QAbar.vue";
-import QATestingViewVue from "../views/QATestingView.vue";
-import QADeploymentViewVue from "../views/QADeploymentView.vue";
+// import QAbar from "../components/QAbar.vue";
+// import QATestingViewVue from "../views/QATestingView.vue";
+// import QADeploymentViewVue from "../views/QADeploymentView.vue";
 import InformVue from "../views/inform.vue";
 
 const router = createRouter({
@@ -58,10 +58,10 @@ const router = createRouter({
         {
           path: "/project",
           name: "project",
-          component: Changebar,
+          component: ProjectView,
           children: [
             {
-              path: "repositories",
+              path: "",
               name: "repositories",
               component: ProjectRepoViewVue,
             },
@@ -82,23 +82,23 @@ const router = createRouter({
             },
           ],
         },
-        {
-          path: "/QA",
-          name: "QA",
-          component: QAbar,
-          children: [
-            {
-              path: "testing",
-              name: "testing",
-              component: QATestingViewVue,
-            },
-            {
-              path: "deployment",
-              name: "deployment",
-              component: QADeploymentViewVue,
-            },
-          ],
-        },
+        // {
+        //   path: "/QA",
+        //   name: "QA",
+          // component: QAbar,
+          // children: [
+          //   {
+          //     path: "testing",
+          //     name: "testing",
+          //     component: QATestingViewVue,
+          //   },
+          //   {
+          //     path: "deployment",
+          //     name: "deployment",
+          //     component: QADeploymentViewVue,
+          //   },
+          // ],
+        // },
       ],
     },
   ],

@@ -15,7 +15,7 @@ const barItem = {
       offset: 1,
       data: {
         type: "image",
-        value: "src/Logo.png",
+        value: "/src/Logo.png",
       },
     },
     {

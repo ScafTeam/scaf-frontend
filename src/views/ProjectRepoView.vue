@@ -4,7 +4,7 @@
       <template #header>
         <div class="repo-card-header">
           <el-button type="primary" plain @click="dialogFormVisible = true">
-            <el-icon class="margin-right-10">
+            <el-icon>
               <Plus />
             </el-icon>
           </el-button>
@@ -120,7 +120,7 @@ function deleterepo(name: string) {
 }
 </script>
 
-<style>
+<style scoped>
 .repo-background {
   background-color: #f5f5f5;
   height: 100%;
@@ -145,10 +145,6 @@ function deleterepo(name: string) {
   width: 960px;
   margin: 20px;
   height: 100%;
-}
-
-.margin-right-10 {
-  margin-right: 10px;
 }
 
 .repo-name-text {
