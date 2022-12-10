@@ -5,8 +5,6 @@ import Changebar from "@/components/changebar.vue";
 </script>
 
 <template>
-  <navbar></navbar>
-  <!-- <Changebar></Changebar> -->
   <RouterView />
 </template>
 

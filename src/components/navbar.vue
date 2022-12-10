@@ -1,11 +1,11 @@
 <template>
-  <el-row>
+  <el-row >
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false"
       @select="handleSelect">
-      <el-col :span="1">
+      <!-- <el-col :span="1">
         <div class="whitespace"></div>
-      </el-col>
-      <el-col :span="3">
+      </el-col> -->
+      <el-col :span="3" :offset="1">
         <el-menu-item style="text-align: center">
           <el-image :src="src" />
         </el-menu-item>
@@ -51,9 +51,9 @@
           <el-menu-item>Sign out</el-menu-item>
         </RouterLink>
       </el-col>
-      <el-col :span="1">
+      <!-- <el-col :span="1">
         <div class="whitespace"></div>
-      </el-col>
+      </el-col> -->
     </el-menu>
   </el-row>
 </template>
