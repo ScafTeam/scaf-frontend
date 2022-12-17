@@ -26,10 +26,10 @@
 </template>
 
 <script lang="ts" setup>
-import NavBarItem from './NavBarItem.vue'
-import { ref, toRefs, defineProps } from 'vue'
+import NavBarItem from "./NavBarItem.vue"
+import { ref, toRefs, defineProps } from "vue"
 
-const activeIndex = ref('1')
+const activeIndex = ref("1")
 const props = defineProps({
   barItem: {
     type: Object,

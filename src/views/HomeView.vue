@@ -15,7 +15,7 @@ const barItem = {
       offset: 1,
       data: {
         type: "image",
-        value: "/src/Logo.png",
+        value: "@/assets/Logo.png",
       },
     },
     {
@@ -40,7 +40,7 @@ const barItem = {
       to: "/settings",
       offset: 9,
       data: {
-        value: 'Settings',
+        value: "Settings",
       },
     },
     {
@@ -48,7 +48,7 @@ const barItem = {
       span: 2,
       offset: 0,
       data: {
-        type: 'notification',
+        type: "notification",
         value: 0,
       },
     },
@@ -58,7 +58,7 @@ const barItem = {
       offset: 0,
       to: "/sign-in",
       data: {
-        value: 'Sign Out',
+        value: "Sign Out",
       },
     }
   ],

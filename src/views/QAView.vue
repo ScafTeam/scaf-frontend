@@ -1,9 +1,8 @@
 <template>
-  <el-breadcrumb separator="/">
+  <!-- <el-breadcrumb separator="/">
     <el-breadcrumb-item :to="{ path: '/QA' }">Q&A</el-breadcrumb-item>
-    <!-- <el-breadcrumb-item :to="{ path: 'project'}">{{ project_name }}</el-breadcrumb-item> -->
   </el-breadcrumb>
-  <NavBar :barItem="barItem" />
+  <NavBar :barItem="barItem" /> -->
   <RouterView />
 </template>
 

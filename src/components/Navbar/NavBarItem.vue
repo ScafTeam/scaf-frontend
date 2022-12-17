@@ -26,7 +26,7 @@
   <template v-else>
     <el-menu-item
       :class="data.class"
-      :style="{ 'font-size': data.size ? data.size : 24 + 'px' }"
+      :style="{'font-size': data.size ? data.size : 24 + 'px'}"
     >
       {{ data.value }}
     </el-menu-item>

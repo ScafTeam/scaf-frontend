@@ -41,7 +41,6 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { Search } from "@element-plus/icons-vue";
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import global_ from "../components/Global.vue";
 import { useProjectStore } from "@/stores/project";
 import axios from "axios";
 

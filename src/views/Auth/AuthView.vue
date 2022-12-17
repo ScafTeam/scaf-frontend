@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="12">
           <template v-if="SignStatus === STATUS.SignIn">
-            <el-image :src="src" style="height: 100px" />
+            <img src="@/assets/Logo.png" style="height: 100px" />
           </template>
           <template v-else>
             <h1 style="title">{{ title }}</h1>
@@ -69,7 +69,7 @@
           </el-form>
         </el-col>
         <el-col :span="12">
-          <img src="../cat.jpg" alt="" width="359" height="356" />
+          <img src="@/assets/cat.jpg" alt="" width="359" height="356" />
         </el-col>
       </el-row>
     </el-card>
@@ -174,7 +174,7 @@ const checkRouteMode = () => {
       break;
   }
 };
-const src = "src/Logo.png";
+const src = "@/assets/Logo.jpg";
 </script>
 
 <style scoped>
