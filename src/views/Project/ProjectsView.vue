@@ -1,5 +1,7 @@
 <template>
   <div class="projects-background">
+    <!-- <div>°Ñ¼Æ: {{ $route.params.param }}</div> -->
+    <!-- <div>{{ projects }}</div> -->
     <el-card class="projects-box-card">
       <template #header>
         <div class="projects-card-header">
@@ -15,20 +17,23 @@
       </template>
       <el-scrollbar height="700px">
         <p
-          v-for="(item, index) in project.names"
+          v-for="(item, index) in projects"
           class="scrollbar-demo-item projects-item"
         >
+          <!-- <p
+          v-for="(item, index) in project.name"
+          class="scrollbar-demo-item projects-item"
+        > -->
           <el-button
             type="primary"
-            @click="ChosePro(item.name)"
+            @click="ChosePro(item.Id)"
             class="projects-button"
             plain
           >
             <el-row style="width: 884px">
               <el-col :span="6" style="text-align: left">
-                <p class="projects-name-text">
-                  {{ index + 1 }} . {{ item.name }}
-                </p>
+                <p class="projects-name-text">{{ item.Name }}<br /></p>
+                {{ item.CreateOn }}
               </el-col>
               <el-col :span="12">
                 <div class="whitespace" />
@@ -55,8 +60,16 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useProjectStore } from "@/stores/project";
+import {
+  useProjectStore,
+  get_user_email,
+  set_projects,
+  get_projects,
+  set_now_project_id,
+} from "@/stores/project";
 import { Delete } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
+
 import axios from "axios";
 
 import { useRouter } from "vue-router";
@@ -64,15 +77,23 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const project = useProjectStore();
-
+const projects = get_projects();
 const test = () => {
   console.log("test");
 };
 const getPro = async () => {
   try {
-    const { data, err } = await axios.get("api/projects", {});
+    // const { data, err } = await axios.get("api/projects", {});
+    const { data, err } = await axios.get(
+      "api/" + get_user_email() + "/project/",
+      {}
+    );
     ElMessage({ type: "success", message: "Get Projects In Success" });
-    console.log("Get Projects");
+    console.log(typeof data["projects"]);
+    set_projects(data["projects"]);
+
+    console.log(get_projects());
+    // console.log(projects[0].Id);
     // console(data);
   } catch (err) {
     ElMessage({ type: "error", message: err.response.data.message });
@@ -80,8 +101,9 @@ const getPro = async () => {
     console.log("ERROR");
   }
 };
-function ChosePro(name: string) {
-  project.nowproject = name;
+function ChosePro(id: string) {
+  // project.nowproject = id;
+  set_now_project_id(id);
   router.push(`/project`);
 }
 

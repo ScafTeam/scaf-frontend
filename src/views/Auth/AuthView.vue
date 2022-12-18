@@ -79,6 +79,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { set_user_email } from "@/stores/project";
 import { ElMessage } from "element-plus";
 import axios from "axios";
 
@@ -104,6 +105,7 @@ const handleAuth = async () => {
       });
       ElMessage({ type: "success", message: "Sign In Success" });
       router.push("/");
+      set_user_email(email.value);
     } catch (err) {
       ElMessage({ type: "error", message: err.response.data.message });
       // ElMessage({ type: "error", message: "Wrong username or password" });
