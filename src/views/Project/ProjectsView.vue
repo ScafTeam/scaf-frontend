@@ -55,7 +55,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useProjectStore } from "@/stores/project";
+import { useProjectStore, getUserEmail } from "@/stores/project";
 import { Delete } from "@element-plus/icons-vue";
 import axios from "axios";
 
@@ -70,7 +70,7 @@ const test = () => {
 };
 const getPro = async () => {
   try {
-    const { data, err } = await axios.get("api/projects", {});
+    const { data, err } = await axios.get("api" + getUserEmail() + "/project", {});
     ElMessage({ type: "success", message: "Get Projects In Success" });
     console.log("Get Projects");
     // console(data);

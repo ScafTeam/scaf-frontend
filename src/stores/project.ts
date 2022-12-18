@@ -9,3 +9,15 @@ export const useProjectStore = defineStore("project", () => {
 }, {
   persist: true,
 });
+
+const userEmail = ref("");
+
+function setUserEmail(email: string):void {
+  userEmail.value = email;
+}
+
+function getUserEmail():string {
+  return userEmail.value;
+}
+
+export { setUserEmail, getUserEmail };

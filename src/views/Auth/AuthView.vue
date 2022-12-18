@@ -79,6 +79,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { setUserEmail } from "@/stores/project";
 import { ElMessage } from "element-plus";
 import axios from "axios";
 
@@ -102,6 +103,7 @@ const handleAuth = async () => {
         email: email.value,
         password: password.value,
       });
+      setUserEmail(email.value);
       ElMessage({ type: "success", message: "Sign In Success" });
       router.push("/");
     } catch (err) {
@@ -224,3 +226,7 @@ h1 {
   --el-input-text-color: black;
 }
 </style>
+
+function setUserEmail(value: string) {
+  throw new Error("Function not implemented.");
+}
