@@ -44,14 +44,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import {
-  useProjectStore,
-  get_user_email,
-  set_projects,
-  get_projects,
-  set_now_project_id,
-  get_now_project_id,
-} from "@/stores/project";
+import { useProjectStore, useUserStore } from "@/stores/project";
 import { Delete } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 
@@ -59,13 +52,15 @@ import axios from "axios";
 
 import { useRouter } from "vue-router";
 
+const projects = useProjectStore();
+const user = useUserStore();
 const getKanban = async () => {
   try {
     const { data, err } = await axios.get(
-      "api/" +
-        get_user_email() +
+      "/api/" +
+        user.get_user_email +
         "/project/" +
-        get_now_project_id() +
+        projects.get_now_project_id +
         "/kanban/",
       {}
     );

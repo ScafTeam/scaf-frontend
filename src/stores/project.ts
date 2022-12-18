@@ -1,42 +1,76 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useProjectStore = defineStore("project", () => {
-  const names = ref<{ name: string, repo: { name: Array<string>, url: Array<string> } }[]>([
-  ]);
-  const nowproject = ref("");
-  const user_email = ref("");
-  return { names, nowproject };
+// export const useProjectStore = defineStore("project", () => {
+//   const names = ref<{ name: string, repo: { name: Array<string>, url: Array<string> } }[]>([
+//   ]);
+//   const nowproject = ref("");
+//   const user_email = ref("");
+//   return { names, nowproject };
+// }, {
+//   persist: true,
+// });
+
+export const useUserStore = defineStore("user", () => {
+  const user_email = ref<string>("");
+  const get_user_email = computed(() => {
+    return user_email.value;
+  });
+
+  const set_user_email = (email: string) => {
+    user_email.value = email;
+  };
+  return { user_email, get_user_email, set_user_email };
 }, {
   persist: true,
 });
 
-const user_email = ref("");
-function set_user_email(email: string) {
-  user_email.value = email;
-}
-function get_user_email() {
-  return user_email.value;
-}
-  
 
-let projects: any[];
+export const useProjectStore = defineStore("project", () => {
+  // let projects: any[];
+  const projects = ref<any[]>([]);
+  const now_id = ref<number>(0);
+  const now_name = ref<string>("");
+  const get_projects = computed(() => {
+    return projects.value;
+  });
+  const get_now_project_id = computed(() => {
+    return now_id.value;
+  });
+  const get_now_project_name = computed(() => {
+    return now_name.value;
+  });
+  const set_projects = (_projects: Array<any>) => {
+    projects.value = Object.assign([], _projects);
+  };
+  const set_now_project_id = (id: number) => {
+    now_id.value = id;
+  };
+  const set_now_project_name = (name: string) => {
+    now_name.value = name;
+  };
+  return {  now_id,now_name, get_projects, get_now_project_id, set_projects, set_now_project_id, get_now_project_name, set_now_project_name};
+}, {
+  persist: true,
+});
 
-function set_projects(_projects: Array<any>) {
-  projects = Object.assign([], _projects);
-}
+// let projects: any[];
 
-function get_projects() {
-  return projects;
-}
-let now_id: number;
+// function set_projects(_projects: Array<any>) {
+//   projects = Object.assign([], _projects);
+// }
 
-function set_now_project_id(id: number) {
-  now_id = id;
-}
+// function get_projects() {
+//   return projects;
+// }
+// let now_id: number;
 
-function get_now_project_id() {
-  return now_id;
-}
+// function set_now_project_id(id: number) {
+//   now_id = id;
+// }
 
-export { set_user_email, get_user_email,set_projects, get_projects, set_now_project_id, get_now_project_id };
+// function get_now_project_id() {
+//   return now_id;
+// }
+
+// export { set_projects, get_projects, set_now_project_id, get_now_project_id };

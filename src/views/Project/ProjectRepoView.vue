@@ -57,19 +57,14 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  useProjectStore,
-  get_projects,
-  get_now_project_id,
-  get_user_email,
-} from "@/stores/project";
+import { useProjectStore, useUserStore } from "@/stores/project";
 import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 
 import axios from "axios";
-const projects = get_projects();
 
-const project = useProjectStore();
+const projects = useProjectStore();
+const user = useUserStore();
 const dialogTableVisible = ref(false);
 const dialogFormVisible = ref(false);
 const formLabelWidth = "140px";
@@ -81,20 +76,23 @@ const form = reactive({
 });
 
 function renew() {
-  for (let i = 0; i < projects.length; i++) {
-    if (projects[i].Id == get_now_project_id()) return projects[i].Repos;
+  for (let i = 0; i < projects.get_projects.length; i++) {
+    if (projects.get_projects[i].Id == projects.get_now_project_id)
+      return projects.get_projects[i].Repos;
   }
 }
 
 async function updateRepo() {
   try {
     const { data, err } = await axios.get(
-      "api/" + get_user_email() + "/project/",
+      "api/" + user.get_user_email + "/project/",
       {}
     );
     ElMessage({ type: "success", message: "Get Projects In Success" });
     console.log(typeof data["projects"]);
-    set_projects(data["projects"]);
+
+    project.set_projects(data["projects"]);
+    // set_projects(data["projects"]);
     console.log(get_projects());
   } catch (err) {
     ElMessage({ type: "error", message: err.response.data.message });
@@ -105,7 +103,11 @@ async function updateRepo() {
 async function CreateRepo() {
   try {
     const { data, err } = await axios.post(
-      "api/" + get_user_email() + "/project/" + get_now_project_id() + "/repo/",
+      "api/" +
+        user.get_user_email +
+        "/project/" +
+        projects.get_now_project_id() +
+        "/repo/",
       {
         Name: form.name,
         Url: form.url,
@@ -118,12 +120,13 @@ async function CreateRepo() {
   }
   try {
     const { data, err } = await axios.get(
-      "api/" + get_user_email() + "/project/",
+      "api/" + user.get_user_email + "/project/",
       {}
     );
     ElMessage({ type: "success", message: "Get Projects In Success" });
     console.log(typeof data["projects"]);
-    set_projects(data["projects"]);
+    project.set_projects(data["projects"]);
+    // set_projects(data["projects"]);
     console.log(get_projects());
   } catch (err) {
     ElMessage({ type: "error", message: err.response.data.message });

@@ -17,7 +17,7 @@
       </template>
       <el-scrollbar height="700px">
         <p
-          v-for="(item, index) in projects"
+          v-for="(item, index) in projects.get_projects"
           class="scrollbar-demo-item projects-item"
         >
           <!-- <p
@@ -26,7 +26,7 @@
         > -->
           <el-button
             type="primary"
-            @click="ChosePro(item.Id)"
+            @click="ChosePro(item.Id, item.Name)"
             class="projects-button"
             plain
           >
@@ -43,7 +43,7 @@
                   type="danger"
                   size="large"
                   plain
-                  @click.stop="deletePro(item.name)"
+                  @click.stop="deletePro(item.Id)"
                 >
                   <el-icon>
                     <Close />
@@ -60,13 +60,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import {
-  useProjectStore,
-  get_user_email,
-  set_projects,
-  get_projects,
-  set_now_project_id,
-} from "@/stores/project";
+import { useProjectStore, useUserStore } from "@/stores/project";
 import { Delete } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 
@@ -76,8 +70,8 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const project = useProjectStore();
-const projects = get_projects();
+const projects = useProjectStore();
+const user = useUserStore();
 const test = () => {
   console.log("test");
 };
@@ -85,42 +79,40 @@ const getPro = async () => {
   try {
     // const { data, err } = await axios.get("api/projects", {});
     const { data, err } = await axios.get(
-      "api/" + get_user_email() + "/project/",
+      "/api/" + user.get_user_email + "/project/",
       {}
     );
     ElMessage({ type: "success", message: "Get Projects In Success" });
-    console.log(typeof data["projects"]);
-    set_projects(data["projects"]);
 
-    console.log(get_projects());
-    // console.log(projects[0].Id);
-    // console(data);
+    console.log(data["projects"]);
+    projects.set_projects(data["projects"]);
+    console.log(projects.projects);
+    console.log(projects.get_projects);
   } catch (err) {
-    ElMessage({ type: "error", message: err.response.data.message });
+    ElMessage({ type: "error", message: err });
     // console(err);
     console.log("ERROR");
   }
 };
-function ChosePro(id: string) {
+function ChosePro(id: string, name: string) {
   // project.nowproject = id;
-  set_now_project_id(id);
+  projects.set_now_project_id(id);
+  projects.set_now_project_name(name);
   router.push(`/project`);
 }
 
-function deletePro(name: string) {
-  for (let i = 0; i < project.names.length; i++) {
-    if (project.names[i].name == name) {
-      project.names.splice(i, 1);
-      // try {
-      //   const { data, err } = await axios.delete("api/project", {
-      //     ????: name.value,
-      //   });
-      //   ElMessage({ type: "success", message: "Delete Project In Success" });
-      // } catch (err) {
-      //   ElMessage({ type: "error", message: err.response.data.message });
-      // }
-    }
+async function deletePro(id: string) {
+  try {
+    const { data, err } = await axios.delete(
+      "/api/" + user.get_user_email + "/project/" + id,
+      {}
+    );
+    ElMessage({ type: "success", message: "delete Repository In Success" });
+  } catch (err) {
+    ElMessage({ type: "error", message: err });
+    console.log(err);
   }
+  getPro();
 }
 getPro();
 </script>

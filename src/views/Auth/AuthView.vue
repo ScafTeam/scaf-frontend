@@ -79,7 +79,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { set_user_email } from "@/stores/project";
+import { useUserStore } from "@/stores/project";
 import { ElMessage } from "element-plus";
 import axios from "axios";
 
@@ -92,6 +92,7 @@ const title = ref("");
 const SignStatus = ref("Sign In");
 const router = useRouter();
 const route = useRoute();
+const user = useUserStore();
 // const username = ref("");
 const email = ref("");
 const password = ref("");
@@ -105,9 +106,9 @@ const handleAuth = async () => {
       });
       ElMessage({ type: "success", message: "Sign In Success" });
       router.push("/");
-      set_user_email(email.value);
+      user.set_user_email(email.value);
     } catch (err) {
-      ElMessage({ type: "error", message: err.response.data.message });
+      ElMessage({ type: "error", message: err });
       // ElMessage({ type: "error", message: "Wrong username or password" });
     }
   } else if (SignStatus.value === STATUS.SignUp) {
@@ -120,7 +121,7 @@ const handleAuth = async () => {
       ElMessage.success("Sign Up Success");
       changeSignIn();
     } catch (err) {
-      ElMessage({ type: "error", message: err.response.data.message });
+      ElMessage({ type: "error", message: err });
     }
   } else if (SignStatus.value === STATUS.ForgotPassword) {
     try {
@@ -130,7 +131,7 @@ const handleAuth = async () => {
       ElMessage.success("Send Email Success");
       changeSignIn();
     } catch (err) {
-      ElMessage({ type: "error", message: err.response.data.message });
+      ElMessage({ type: "error", message: err });
     }
   }
 };
