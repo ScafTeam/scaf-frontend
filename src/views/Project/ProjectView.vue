@@ -1,18 +1,23 @@
 <template>
   <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">User</el-breadcrumb-item>
-    <el-breadcrumb-item :to="{ path: 'project'}">{{ project_name }}</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/' }">{{
+      user.get_user_email
+    }}</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: 'project' }">{{
+      projects.get_now_project_name
+    }}</el-breadcrumb-item>
   </el-breadcrumb>
   <NavBar :barItem="barItem" />
   <RouterView />
 </template>
 
 <script lang="ts" setup>
-import { useProjectStore } from "@/stores/project";
+import { useProjectStore, useUserStore } from "@/stores/project";
 import NavBar from "@/components/Navbar/NavBar.vue";
 
-const project = useProjectStore();
-const project_name = project.nowproject;
+const projects = useProjectStore();
+const user = useUserStore();
+
 const barItem = {
   items: [
     {

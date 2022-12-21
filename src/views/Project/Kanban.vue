@@ -42,9 +42,43 @@
   </el-row>
 </template>
 
-<style>
+<script lang="ts" setup>
+import { ref } from "vue";
+import { useProjectStore, useUserStore } from "@/stores/project";
+import { Delete } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 
-.box-card{
+import axios from "axios";
+
+import { useRouter } from "vue-router";
+
+const projects = useProjectStore();
+const user = useUserStore();
+const getKanban = async () => {
+  try {
+    const { data, err } = await axios.get(
+      "/api/" +
+        user.get_user_email +
+        "/project/" +
+        projects.get_now_project_id +
+        "/kanban/",
+      {}
+    );
+    console.log(data["kanban"]);
+
+    ElMessage({ type: "success", message: "Get Kanban In Success" });
+  } catch (err) {
+    ElMessage({ type: "error", message: err });
+
+    console.log("ERROR");
+  }
+};
+
+getKanban();
+</script>
+
+<style>
+.box-card {
   width: 100%;
   height: 100%;
   margin-bottom: 20px;
@@ -52,7 +86,7 @@
 
 .card-header {
   display: flex;
-  justify-content: center !important;/*被其他样式覆盖了 */
+  justify-content: center !important; /*被其他样式覆盖了 */
   align-items: center;
 }
 

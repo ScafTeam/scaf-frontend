@@ -36,8 +36,8 @@
           class="scrollbar-demo-item projects-item"
         >
           <el-button type="primary" class="repo-button" plain>
-            <a class="repo-name-text" :href="item.url">{{ item.name }}</a>
-            <a class="repo-domain-name-text">{{ item.url }}</a>
+            <a class="repo-name-text" :href="item.Url">{{ item.Name }}</a>
+            <a class="repo-domain-name-text">{{ item.Url }}</a>
             <el-button
               type="primary"
               size="small"
@@ -57,10 +57,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useProjectStore } from "@/stores/project";
+import { useProjectStore, useUserStore } from "@/stores/project";
 import { reactive, ref } from "vue";
+import { ElMessage } from "element-plus";
 
-const project = useProjectStore();
+import axios from "axios";
+
+const projects = useProjectStore();
+const user = useUserStore();
 const dialogTableVisible = ref(false);
 const dialogFormVisible = ref(false);
 const formLabelWidth = "140px";
@@ -72,26 +76,61 @@ const form = reactive({
 });
 
 function renew() {
-  for (let i = 0; i < project.names.length; i++) {
-    if (project.names[i].name == project.nowproject)
-      return project.names[i].repo;
+  for (let i = 0; i < projects.get_projects.length; i++) {
+    if (projects.get_projects[i].Id == projects.get_now_project_id)
+      return projects.get_projects[i].Repos;
   }
 }
-function CreateRepo() {
-  for (let i = 0; i < project.names.length; i++) {
-    if (project.names[i].name == project.nowproject) {
-      project.names[i].repo.push({ name: form.name, url: form.url });
-      // try {
-      //   const { data, err } = await axios.post("api/projects/:id/addRepo", {
-      //     Name: form.name.value,
-      //     Url: form.url.value,
-      //   });
-      //   ElMessage({ type: "success", message: "Add Repository In Success" });
-      // } catch (err) {
-      //   ElMessage({ type: "error", message: err.response.data.message });
-      // }
-      console.log(project.names[i].repo.length);
-    }
+
+async function updateRepo() {
+  try {
+    const { data, err } = await axios.get(
+      "api/" + user.get_user_email + "/project/",
+      {}
+    );
+    ElMessage({ type: "success", message: "Get Projects In Success" });
+    console.log(typeof data["projects"]);
+
+    project.set_projects(data["projects"]);
+    // set_projects(data["projects"]);
+    console.log(get_projects());
+  } catch (err) {
+    ElMessage({ type: "error", message: err.response.data.message });
+    console.log("ERROR");
+  }
+}
+
+async function CreateRepo() {
+  try {
+    const { data, err } = await axios.post(
+      "api/" +
+        user.get_user_email +
+        "/project/" +
+        projects.get_now_project_id() +
+        "/repo/",
+      {
+        Name: form.name,
+        Url: form.url,
+      }
+    );
+    ElMessage({ type: "success", message: "Add Repository In Success" });
+  } catch (err) {
+    ElMessage({ type: "error", message: err });
+    console.log(err);
+  }
+  try {
+    const { data, err } = await axios.get(
+      "api/" + user.get_user_email + "/project/",
+      {}
+    );
+    ElMessage({ type: "success", message: "Get Projects In Success" });
+    console.log(typeof data["projects"]);
+    project.set_projects(data["projects"]);
+    // set_projects(data["projects"]);
+    console.log(get_projects());
+  } catch (err) {
+    ElMessage({ type: "error", message: err.response.data.message });
+    console.log("ERROR");
   }
   nowrepo = renew();
 }

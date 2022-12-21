@@ -1,5 +1,7 @@
 <template>
   <div class="projects-background">
+    <!-- <div>�Ѽ�: {{ $route.params.param }}</div> -->
+    <!-- <div>{{ projects }}</div> -->
     <el-card class="projects-box-card">
       <template #header>
         <div class="projects-card-header">
@@ -15,20 +17,23 @@
       </template>
       <el-scrollbar height="700px">
         <p
-          v-for="(item, index) in project.names"
+          v-for="(item, index) in projects.get_projects"
           class="scrollbar-demo-item projects-item"
         >
+          <!-- <p
+          v-for="(item, index) in project.name"
+          class="scrollbar-demo-item projects-item"
+        > -->
           <el-button
             type="primary"
-            @click="ChosePro(item.name)"
+            @click="ChosePro(item.Id, item.Name)"
             class="projects-button"
             plain
           >
             <el-row style="width: 884px">
               <el-col :span="6" style="text-align: left">
-                <p class="projects-name-text">
-                  {{ index + 1 }} . {{ item.name }}
-                </p>
+                <p class="projects-name-text">{{ item.Name }}<br /></p>
+                {{ item.CreateOn }}
               </el-col>
               <el-col :span="12">
                 <div class="whitespace" />
@@ -38,7 +43,7 @@
                   type="danger"
                   size="large"
                   plain
-                  @click.stop="deletePro(item.name)"
+                  @click.stop="deletePro(item.Id)"
                 >
                   <el-icon>
                     <Close />
@@ -55,16 +60,22 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+<<<<<<< HEAD
 import { useProjectStore, getUserEmail } from "@/stores/project";
+=======
+import { useProjectStore, useUserStore } from "@/stores/project";
+>>>>>>> lin-api
 import { Delete } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
+
 import axios from "axios";
 
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const project = useProjectStore();
-
+const projects = useProjectStore();
+const user = useUserStore();
 const test = () => {
   console.log("test");
 };
@@ -72,33 +83,36 @@ const getPro = async () => {
   try {
     const { data, err } = await axios.get("api" + getUserEmail() + "/project", {});
     ElMessage({ type: "success", message: "Get Projects In Success" });
-    console.log("Get Projects");
-    // console(data);
+
+    console.log(data["projects"]);
+    projects.set_projects(data["projects"]);
+    console.log(projects.projects);
+    console.log(projects.get_projects);
   } catch (err) {
-    ElMessage({ type: "error", message: err.response.data.message });
+    ElMessage({ type: "error", message: err });
     // console(err);
     console.log("ERROR");
   }
 };
-function ChosePro(name: string) {
-  project.nowproject = name;
+function ChosePro(id: string, name: string) {
+  // project.nowproject = id;
+  projects.set_now_project_id(id);
+  projects.set_now_project_name(name);
   router.push(`/project`);
 }
 
-function deletePro(name: string) {
-  for (let i = 0; i < project.names.length; i++) {
-    if (project.names[i].name == name) {
-      project.names.splice(i, 1);
-      // try {
-      //   const { data, err } = await axios.delete("api/project", {
-      //     ????: name.value,
-      //   });
-      //   ElMessage({ type: "success", message: "Delete Project In Success" });
-      // } catch (err) {
-      //   ElMessage({ type: "error", message: err.response.data.message });
-      // }
-    }
+async function deletePro(id: string) {
+  try {
+    const { data, err } = await axios.delete(
+      "/api/" + user.get_user_email + "/project/" + id,
+      {}
+    );
+    ElMessage({ type: "success", message: "delete Repository In Success" });
+  } catch (err) {
+    ElMessage({ type: "error", message: err });
+    console.log(err);
   }
+  getPro();
 }
 getPro();
 </script>

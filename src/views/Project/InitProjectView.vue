@@ -41,9 +41,10 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { Search } from "@element-plus/icons-vue";
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import { useProjectStore } from "@/stores/project";
+import { useProjectStore, useUserStore } from "@/stores/project";
 import axios from "axios";
 
+const user = useUserStore();
 const project = useProjectStore();
 const formSize = ref("default");
 const ruleFormRef = ref<FormInstance>();
@@ -64,20 +65,20 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log("valid");
-      project.names.push({ name: ruleForm.name, repo: [] });
       try {
-        console.log("A");
-        const { data, err } = axios.post("api/project", {
-          Name: ruleForm.name,
-          DevTools: [],
-          DevMode: "",
-        });
+        const { data, err } = axios.post(
+          "/api/" + user.get_user_email + "/project/",
+          {
+            Name: ruleForm.name,
+            DevTools: [],
+            DevMode: "",
+          }
+        );
         ElMessage({ type: "success", message: "Create Project In Success" });
         console.log("Create Project In Success");
         // console.log(data);
       } catch (err) {
         ElMessage({ type: "error", message: err.response.data.message });
-        console.log("F");
         console.log(err);
       }
       project.nowproject = ruleForm.name;
