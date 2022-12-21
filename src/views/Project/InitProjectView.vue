@@ -1,7 +1,14 @@
 <template>
   <div class="init-project-background">
-    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px"
-      class="demo-ruleForm init-project-form" :size="formSize" status-icon>
+    <el-form
+      ref="ruleFormRef"
+      :model="ruleForm"
+      :rules="rules"
+      label-width="120px"
+      class="demo-ruleForm init-project-form"
+      :size="formSize"
+      status-icon
+    >
       <el-form-item label="project name" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -11,14 +18,18 @@
       </el-form-item>
       <el-form-item label="" prop="type">
         <el-checkbox-group v-model="ruleForm.type">
-          <el-checkbox label="Add a README file 
-                            ( This is where you can write a long description for your project )" name="type" />
+          <el-checkbox
+            label="Add a README file 
+                            ( This is where you can write a long description for your project )"
+            name="type"
+          />
         </el-checkbox-group>
       </el-form-item>
 
       <el-form-item>
         <router-link to="/project" class="no-underline">
-          <el-button type="primary" @click="submitForm(ruleFormRef)">Create
+          <el-button type="primary" @click="submitForm(ruleFormRef)"
+            >Create
           </el-button>
         </router-link>
       </el-form-item>
@@ -30,8 +41,8 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { Search } from "@element-plus/icons-vue";
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import global_ from '../components/Global.vue'
-import { useProjectStore } from '@/stores/project'
+import { useProjectStore } from "@/stores/project";
+import axios from "axios";
 
 const project = useProjectStore();
 const formSize = ref("default");
@@ -52,18 +63,30 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('valid');
-      project.names.push({name:ruleForm.name,repo:[]});
+      console.log("valid");
+      project.names.push({ name: ruleForm.name, repo: [] });
+      try {
+        console.log("A");
+        const { data, err } = axios.post("api/project", {
+          Name: ruleForm.name,
+          DevTools: [],
+          DevMode: "",
+        });
+        ElMessage({ type: "success", message: "Create Project In Success" });
+        console.log("Create Project In Success");
+        // console.log(data);
+      } catch (err) {
+        ElMessage({ type: "error", message: err.response.data.message });
+        console.log("F");
+        console.log(err);
+      }
       project.nowproject = ruleForm.name;
     } else {
-      console.log('error submit!', fields);
+      console.log("error submit!", fields);
     }
   });
 };
 const projectNameInput = ref("");
-
-
-
 </script>
 <style>
 .init-project-background {

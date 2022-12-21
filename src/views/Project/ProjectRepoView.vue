@@ -4,7 +4,7 @@
       <template #header>
         <div class="repo-card-header">
           <el-button type="primary" plain @click="dialogFormVisible = true">
-            <el-icon class="margin-right-10">
+            <el-icon>
               <Plus />
             </el-icon>
           </el-button>
@@ -81,7 +81,15 @@ function CreateRepo() {
   for (let i = 0; i < project.names.length; i++) {
     if (project.names[i].name == project.nowproject) {
       project.names[i].repo.push({ name: form.name, url: form.url });
-
+      // try {
+      //   const { data, err } = await axios.post("api/projects/:id/addRepo", {
+      //     Name: form.name.value,
+      //     Url: form.url.value,
+      //   });
+      //   ElMessage({ type: "success", message: "Add Repository In Success" });
+      // } catch (err) {
+      //   ElMessage({ type: "error", message: err.response.data.message });
+      // }
       console.log(project.names[i].repo.length);
     }
   }
@@ -94,6 +102,14 @@ function deleterepo(name: string) {
       for (let j = 0; j < project.names[i].repo.length; j++) {
         if (project.names[i].repo[j] == name) {
           project.names[i].repo.splice(j, 1);
+          // try {
+          //   const { data, err } = await axios.delete("api/projects/:id/????", {
+          //     ????: name.value
+          //   });
+          //   ElMessage({ type: "success", message: "Delete Repository In Success" });
+          // } catch (err) {
+          //   ElMessage({ type: "error", message: err.response.data.message });
+          // }
           nowrepo = renew();
           console.log(nowrepo);
           return;
@@ -104,7 +120,7 @@ function deleterepo(name: string) {
 }
 </script>
 
-<style>
+<style scoped>
 .repo-background {
   background-color: #f5f5f5;
   height: 100%;
@@ -129,10 +145,6 @@ function deleterepo(name: string) {
   width: 960px;
   margin: 20px;
   height: 100%;
-}
-
-.margin-right-10 {
-  margin-right: 10px;
 }
 
 .repo-name-text {

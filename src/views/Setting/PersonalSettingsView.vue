@@ -38,7 +38,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import uploadimage from "@/components/uploadimage.vue";
+import uploadimage from "@/components/UpLoadImage.vue";
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules, UploadProps } from "element-plus";
 

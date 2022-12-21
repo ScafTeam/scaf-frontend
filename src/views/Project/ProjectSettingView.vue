@@ -1,26 +1,31 @@
 <template>
   <div class="setting-background">
     <el-row class="row-bg" justify="center">
-      <el-tabs tab-position="left" style="height: 725px" class="demo-tabs setting-tabs">
+      <el-tabs tab-position="left" style="height: 500px; width: 800px;" class="demo-tabs setting-tabs">
         <el-tab-pane>
           <template #label>
             <span class="setting-item">
               <span>general</span>
             </span>
           </template>
-          <div class="setting-box">
-            General
-            <el-button type="primary" plain class="setting-button margin-right-10">
+          <el-row>
+            <el-col :span="6">
+              General
+            </el-col>
+            <el-col :span="4" :offset="14">
+            <el-button type="primary" plain>
               <el-icon class="margin-right-10">
                 <Refresh />
               </el-icon>
               update
             </el-button>
-          </div>
-          <el-form :model="form" label-width="120px">
+          </el-col>
+          </el-row>
+          <el-form :model="form" label-width="132px">
             <el-form-item label="Project name">
               <el-input v-model="form.name" />
             </el-form-item>
+          
             <el-form-item label="development mode">
               <el-select v-model="form.development" placeholder="please select your zone">
                 <el-option label="Waterfall" value="shanghai" />
@@ -28,6 +33,7 @@
               </el-select>
             </el-form-item>
           </el-form>  
+        
         </el-tab-pane>
 
         <el-tab-pane>
@@ -73,7 +79,7 @@
 <script lang="ts" setup>
 import { ElMessage, ElMessageBox } from "element-plus";
 import { ref } from "vue";
-import { reactive } from 'vue'
+import { reactive } from "vue"
 import { Search } from "@element-plus/icons-vue";
 const projectNameInput = ref("");
 const memberInput = ref("");
@@ -103,12 +109,12 @@ const open = () => {
 
 // do not use same name with ref
 const form = reactive({
-  name: '',
-  development: ''
+  name: "",
+  development: ""
 })
 
 const onSubmit = () => {
-  console.log('submit!')
+  console.log("submit!")
 }
 </script>
 
@@ -136,6 +142,7 @@ const onSubmit = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 50%;
 }
 
 .font-size-20 {
@@ -179,5 +186,9 @@ const onSubmit = () => {
 
 .margin-bottom-30 {
   margin-bottom: 30px;
+}
+
+.el-form-item__label{
+  justify-content: left;
 }
 </style>
