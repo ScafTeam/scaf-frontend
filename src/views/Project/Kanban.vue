@@ -52,13 +52,24 @@ import axios from "axios";
 
 import { useRouter } from "vue-router";
 
+<<<<<<< Updated upstream
 const projects = useProjectStore();
 const user = useUserStore();
+=======
+import { getKanbanAPI } from "@/api";
+
+>>>>>>> Stashed changes
 const getKanban = async () => {
+
+  const data = await getKanbanAPI(get_user_email(), get_now_project_id());
+  console.log(data);
   try {
+
+    const data = await getKanban(em, id)
+
     const { data, err } = await axios.get(
       "/api/" +
-        user.get_user_email +
+        get_user_email() +
         "/project/" +
         projects.get_now_project_id +
         "/kanban/",

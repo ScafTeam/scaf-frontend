@@ -60,11 +60,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-<<<<<<< HEAD
-import { useProjectStore, getUserEmail } from "@/stores/project";
-=======
 import { useProjectStore, useUserStore } from "@/stores/project";
->>>>>>> lin-api
 import { Delete } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 

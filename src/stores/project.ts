@@ -25,6 +25,33 @@ export const useUserStore = defineStore("user", () => {
   persist: true,
 });
 
+export const useUserStore = defineStore("user", () => {
+  const user_email = ref("");
+  const JWTtoken = ref("");
+
+  const getUserEmail = () => {
+    return user_email.value;
+  };
+
+  const setUserEmail = (email: string) => {
+    user_email.value = email;
+  };
+
+  return { getUserEmail };
+}, {
+  persist: true,
+});
+
+const user_email = ref("");
+function set_user_email(email: string) {
+  user_email.value = email;
+}
+function get_user_email() {
+  return user_email.value;
+}
+  
+
+let projects: any[];
 
 export const useProjectStore = defineStore("project", () => {
   // let projects: any[];
