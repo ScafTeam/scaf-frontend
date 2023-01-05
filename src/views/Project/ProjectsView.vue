@@ -1,170 +1,100 @@
-<template>
-  <div class="projects-background">
-    <!-- <div>�Ѽ�: {{ $route.params.param }}</div> -->
-    <!-- <div>{{ projects }}</div> -->
-    <el-card class="projects-box-card">
-      <template #header>
-        <div class="projects-card-header">
-          <a class="projects-title-text"> My Projects</a>
-          <router-link to="/init-project" class="no-underline">
-            <el-button type="primary" class="projects-plus-button" plain>
-              <el-icon>
-                <Plus />
-              </el-icon>
-            </el-button>
-          </router-link>
-        </div>
-      </template>
-      <el-scrollbar height="700px">
-        <p
-          v-for="(item, index) in projects.get_projects"
-          class="scrollbar-demo-item projects-item"
-        >
-          <!-- <p
-          v-for="(item, index) in project.name"
-          class="scrollbar-demo-item projects-item"
-        > -->
-          <el-button
-            type="primary"
-            @click="ChosePro(item.Id, item.Name)"
-            class="projects-button"
-            plain
-          >
-            <el-row style="width: 884px">
-              <el-col :span="6" style="text-align: left">
-                <p class="projects-name-text">{{ item.Name }}<br /></p>
-                {{ item.CreateOn }}
-              </el-col>
-              <el-col :span="12">
-                <div class="whitespace" />
-              </el-col>
-              <el-col :span="6" style="text-align: right">
-                <el-button
-                  type="danger"
-                  size="large"
-                  plain
-                  @click.stop="deletePro(item.Id)"
-                >
-                  <el-icon>
-                    <Close />
-                  </el-icon>
-                </el-button>
-              </el-col>
-            </el-row>
-          </el-button>
-        </p>
-      </el-scrollbar>
-    </el-card>
-  </div>
-</template>
+<script setup lang="ts">
+import { computed, ref, reactive } from 'vue'
+import { Folder } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
-<script lang="ts" setup>
-import { ref } from "vue";
-import { useProjectStore, useUserStore } from "@/stores/project";
-import { Delete } from "@element-plus/icons-vue";
-import { ElMessage } from "element-plus";
+import { useUserStore } from '@/stores'
+import api from '@/api'
 
-import axios from "axios";
+const userStore = useUserStore()
+const router = useRouter()
+const projects = computed(() => userStore.projects)
+const isLoading = ref(true)
+const ProjectDialog = ref(false)
+const ProjectForm = reactive({
+  name: '',
+  devTools: [],
+  devMode: 'waterfall'
+})
 
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
-const projects = useProjectStore();
-const user = useUserStore();
-const test = () => {
-  console.log("test");
-};
-const getPro = async () => {
-  try {
-    const { data, err } = await axios.get("api" + getUserEmail() + "/project", {});
-    ElMessage({ type: "success", message: "Get Projects In Success" });
-
-    console.log(data["projects"]);
-    projects.set_projects(data["projects"]);
-    console.log(projects.projects);
-    console.log(projects.get_projects);
-  } catch (err) {
-    ElMessage({ type: "error", message: err });
-    // console(err);
-    console.log("ERROR");
-  }
-};
-function ChosePro(id: string, name: string) {
-  // project.nowproject = id;
-  projects.set_now_project_id(id);
-  projects.set_now_project_name(name);
-  router.push(`/project`);
+const createProject = () => {
+  api.createProject(userStore.email, ProjectForm).then((res) => {
+    router.push(`/${userStore.email}/${ProjectForm.name}/`)
+    ElMessage.success('Project created successfully')
+  })
 }
 
-async function deletePro(id: string) {
-  try {
-    const { data, err } = await axios.delete(
-      "/api/" + user.get_user_email + "/project/" + id,
-      {}
-    );
-    ElMessage({ type: "success", message: "delete Repository In Success" });
-  } catch (err) {
-    ElMessage({ type: "error", message: err });
-    console.log(err);
-  }
-  getPro();
-}
-getPro();
+userStore.getUserInfo().then(() => {
+  isLoading.value = false
+})
 </script>
 
+<template>
+  <el-container>
+    <el-main>
+      <el-card>
+        <template #header>
+          <div class="header">
+            <h1 class="title">My Projects</h1>
+            <el-button :icon="Folder" type="primary" size="large" @click="ProjectDialog = true">
+              New Project
+            </el-button>
+          </div>
+        </template>
+        <template v-if="isLoading">
+          <div>Loading...</div>
+        </template>
+        <template v-else>
+          <div v-for="project, idx in projects" :key="project">
+            <router-link :to="`/${project}/`">
+              <div class="project">
+                <el-icon><Folder /></el-icon>
+                {{ project }}
+              </div>
+            </router-link>
+            <el-divider v-if="idx < projects.length - 1" />
+          </div>
+        </template>
+      </el-card>
+    </el-main>
+    <el-dialog v-model="ProjectDialog" title="New Project">
+      <el-form v-model="ProjectForm" label-width="100px">
+      <el-form-item label="Project Name">
+        <el-input v-model="ProjectForm.name" />
+      </el-form-item>
+      <el-form-item label="Dev Tools">
+        <el-checkbox-group v-model="ProjectForm.devTools">
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="Dev Mode">
+        <el-radio-group v-model="ProjectForm.devMode">
+          <el-radio label="waterfall">Waterfall</el-radio>
+          <el-radio label="scrum">Scrum</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="createProject">Create</el-button>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
+  </el-container>
+
+</template>
+
 <style scoped>
-.whitespace {
-  background-color: white;
+.title {
+  font-size: 2rem;
 }
 
-.project-button-inside {
+.project {
   width: 100%;
+  font-size: 1.2em;
+  color: rgb(6, 45, 153);
 }
 
-.projects-background {
-  background-color: #f5f5f5;
-  height: 10%;
-  width: 100%;
+.header {
   display: flex;
-  justify-content: center;
-}
-
-.projects-item {
-  margin-bottom: 10px;
-  height: 80px;
-}
-
-.projects-button {
-  width: 918px;
-  height: 100%;
-  padding: 16px;
-  justify-content: left !important;
-}
-
-.projects-box-card {
-  width: 960px;
-  margin: 20px;
-  height: 100%;
-}
-
-.projects-name-text {
-  width: 100%;
-  font-size: 30px;
-  margin-right: 20px;
-  margin-top: 10px;
-  text-align: left;
-}
-
-.projects-title-text {
-  font-size: 40px;
-  font-weight: bold;
-  margin-right: 0px;
-  text-align: left;
-}
-
-.projects-plus-button {
-  float: right;
-  margin-top: 10px;
+  justify-content: space-between;
 }
 </style>
