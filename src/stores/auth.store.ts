@@ -26,6 +26,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async signOut() {
       this.email = ''
+      localStorage.removeItem('jwt')
       router.push('/')
     }
   },
